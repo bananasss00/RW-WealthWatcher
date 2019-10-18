@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>WealthWatcher 1.1</name>
+	<supportedVersions><li>1.0</li></supportedVersions>
+	<author>PirateBY</author>
+	<description>
+English:	
+   -Overview wealth of the colony
+   -(optional) Show potencial raid strength
+   -(optional) Allow attack items(command)
+   Default key: Z
+Русский:
+   -Обзор богатства колонии
+   -(опционально) Показывать силу потенциального рейда
+   -(опционально) Разрешить атаковать предметы(приказ)
+   Кнопка по умолчанию: Z</description>
+</ModMetaData>

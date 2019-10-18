@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <ShowItems>Items</ShowItems>
+  <ShowBuildings>Buildings</ShowBuildings>
+  <ShowRaidPoints>RaidPoints</ShowRaidPoints>
+  
+  <EntryLabel>Label</EntryLabel>
+  <CountLabel>Count</CountLabel>
+  <MarketValueLabel>Value</MarketValueLabel>
+  <InfoLabel>Info</InfoLabel>
+  <Pawns>Pawns</Pawns>
+  
+  <CurrentRaidPoints>Raid strength(points)</CurrentRaidPoints>
+  
+  <PointsFormula>RaidPoints = (P:Wealth + P:Colonists + P:Animals) * F:Adaptation * F:Difficulty * F:DaysPassed</PointsFormula>
+  <PointsLabel>&lt;b&gt;&lt;color=green&gt;Points&lt;/color&gt;&lt;/b&gt;</PointsLabel>
+  <FactorsLabel>&lt;b&gt;&lt;color=green&gt;Factors&lt;/color&gt;&lt;/b&gt;</FactorsLabel>
+  <WealthLabel>P:Wealth</WealthLabel>
+  <WealthDescription>  Items: {0}\n  Buildings: {1}\n  Pawns: {2}</WealthDescription>
+  <ColonistsLabel>P:Colonists</ColonistsLabel>
+  <AnimalsLabel>P:Animals</AnimalsLabel>
+  <AdaptationLabel>F:Adaptation</AdaptationLabel>
+  <DifficultyLabel>F:Difficulty</DifficultyLabel>
+  <DaysPassedLabel>F:DaysPassed</DaysPassedLabel>
+  
+  <Settings_ShowRadePoints>Show raid strength(points)</Settings_ShowRadePoints>
+  <Settings_UnlockManualDamageItems>Allow attack items(command)</Settings_UnlockManualDamageItems>
+  
+</LanguageData>
