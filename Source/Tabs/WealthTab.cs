@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -15,7 +16,7 @@ namespace WealthWatcher.Tabs
 
     public abstract class WealthTab
     {
-        public static readonly GUIStyle HeaderStyle = new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.BoldAndItalic };
+        public static readonly GUIStyle HeaderStyle = new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.BoldAndItalic, alignment = TextAnchor.MiddleLeft};
         protected List<WealthItem> items;
 
         public virtual float LineHeight => Text.LineHeight * 2.25f + 2f;
@@ -26,112 +27,90 @@ namespace WealthWatcher.Tabs
         {
             if (items == null) return;
 
-            Rect lineRect = new Rect(viewRect) { height = LineHeight};
-
-            if (items.Count > 0)
-                DrawHeadEntry(ref lineRect);
-
-            items.ForEach(wi => DrawEntry(ref lineRect, wi));
+            float y = viewRect.y;
+            DrawHeadLine(viewRect.width, LineHeight, ref y);
+            items.ForEach(wi => DrawLine(wi, viewRect.width, LineHeight, ref y));
         }
 
-        private void DrawHeadEntry(ref Rect lineRect)
+        #region Draw helpers
+
+        private void DrawElementOfLineHead(ref Rect elementRect, float width, string label)
         {
-            Rect iconRect = new Rect(lineRect)
-            {
-                width = lineRect.height
-            };
+            elementRect.width = width;
 
-            Rect nameRect = new Rect(lineRect)
+            if (label != null)
             {
-                x = lineRect.x + iconRect.width,
-                width = lineRect.width - iconRect.width - lineRect.height * 3f
-            };
-            GUI.Label(nameRect, "EntryLabel".Translate(), HeaderStyle);
+                GUI.Label(elementRect, label, HeaderStyle);
+            }
 
-            Rect countRect = new Rect(lineRect)
-            {
-                x = nameRect.x + nameRect.width,
-                width = lineRect.height
-            };
-            GUI.Label(countRect, "CountLabel".Translate(), HeaderStyle);
-
-            Rect marketValueAllRect = new Rect(lineRect)
-            {
-                x = countRect.x + countRect.width,
-                width = lineRect.height
-            };
-            GUI.Label(marketValueAllRect, "MarketValueLabel".Translate(), HeaderStyle);
-
-            Rect infoButtonRect = new Rect(lineRect)
-            {
-                x = marketValueAllRect.x + marketValueAllRect.width,
-                width = lineRect.height
-            };
-            GUI.Label(infoButtonRect, "InfoLabel".Translate(), HeaderStyle);
-
-            lineRect.y += lineRect.height;
+            elementRect.x = elementRect.xMax;
         }
 
-        private void DrawEntry(ref Rect lineRect, WealthItem wi)
+        private void DrawElementOfLine<SecondParamType>(ref Rect elementRect, float width, Action<Rect, SecondParamType> widgetFunc, SecondParamType secondParameter)
+            where SecondParamType : class
         {
-            if (wi.thing != null && wi.MarketValueAll < 1f)
-                return;
+            elementRect.width = width;
 
+            if (secondParameter != null)
+            {
+                widgetFunc(elementRect, secondParameter);
+            }
+
+            elementRect.x = elementRect.xMax;
+        }
+
+        #endregion
+        
+        private void DrawHeadLine(float width, float height, ref float y)
+        {
+            GUI.BeginGroup(new Rect(x: 0f, y: y, width: width, height: height));
+
+            Rect
+                elementRect = new Rect(x: 0f, y: 0f, width: width, height: height);
+
+            float
+                defaultColumnWidth = height,
+                nameColumnWidth = width - height * 4; // 4 = icon+count+value+info width
+
+            DrawElementOfLineHead(ref elementRect, defaultColumnWidth, null);
+            DrawElementOfLineHead(ref elementRect, nameColumnWidth, "EntryLabel".Translate());
+            DrawElementOfLineHead(ref elementRect, defaultColumnWidth, "CountLabel".Translate());
+            DrawElementOfLineHead(ref elementRect, defaultColumnWidth, "MarketValueLabel".Translate());
+            DrawElementOfLineHead(ref elementRect, defaultColumnWidth, "InfoLabel".Translate());
+            
+            GUI.EndGroup();
+            y += height;
+        }
+
+        private void DrawLine(WealthItem wi, float width, float height, ref float y)
+        {
+            if (wi.thing != null && wi.MarketValueAll < 1f) return;
+
+            GUI.BeginGroup(new Rect(x: 0f, y: y, width: width, height: height));
+
+            float
+                defaultColumnWidth = height,
+                nameColumnWidth = width - height * 4; // 4 = icon+count+value+info width
+
+            Rect
+                elementRect = new Rect(x: 0f, y: 0f, width: width, height: height),
+                lineRect = elementRect;
+            
             Widgets.DrawHighlightIfMouseover(lineRect);
+            // icon, lambda because Widgets.ThingIcon has 3 arguments with default float value 1
+            DrawElementOfLine(ref elementRect, defaultColumnWidth, (rect, thing) => Widgets.ThingIcon(rect, thing), wi.thing);
+            // label
+            DrawElementOfLine(ref elementRect, nameColumnWidth, Widgets.Label, wi.Name);
+            // count
+            DrawElementOfLine(ref elementRect, defaultColumnWidth, Widgets.Label, $"x{wi.Count}");
+            // marketValue
+            DrawElementOfLine(ref elementRect, defaultColumnWidth, Widgets.Label, Mathf.RoundToInt(wi.MarketValueAll).ToString());
+            // infoCardButton
+            Widgets.InfoCardButton(elementRect.x, elementRect.y, wi.thing);
+            TooltipHandler.TipRegion(lineRect, wi.thing.DescriptionFlavor);
 
-            Rect iconRect = new Rect(lineRect)
-            {
-                width = lineRect.height
-            };
-            if (wi.thing != null)
-            {
-                Widgets.ThingIcon(iconRect, wi.thing/*.def*/);
-            }
-
-            Rect nameRect = new Rect(lineRect)
-            {
-                x = lineRect.x + iconRect.width,
-                width = lineRect.width - iconRect.width - lineRect.height * 3f
-            };
-            Widgets.Label(nameRect, wi.Name);
-
-            Rect countRect = new Rect(lineRect)
-            {
-                x = nameRect.x + nameRect.width,
-                width = lineRect.height
-            };
-            if (wi.thing != null)
-            {
-                Widgets.Label(countRect, "x" + wi.Count);
-            }
-
-            Rect marketValueAllRect = new Rect(lineRect)
-            {
-                x = countRect.x + countRect.width,
-                width = lineRect.height
-            };
-            Widgets.Label(marketValueAllRect, Mathf.RoundToInt(wi.MarketValueAll).ToString());
-
-            Rect infoButtonRect = new Rect(lineRect)
-            {
-                x = marketValueAllRect.x + marketValueAllRect.width,
-                width = lineRect.height
-            };
-            if (wi.thing != null)
-            {
-                Widgets.InfoCardButton(infoButtonRect.x + infoButtonRect.width / 2f - 12f, infoButtonRect.y + infoButtonRect.height / 2f - 12f, wi.thing);
-                TooltipHandler.TipRegion(lineRect, wi.thing.DescriptionFlavor);
-            }
-
-            lineRect.y += lineRect.height;
+            GUI.EndGroup();
+            y += height;
         }
     }
 }
-
-/*
-    GUI.BeginGroup(new Rect(0, viewRect.y + i * (Text.LineHeight + 2), viewRect.width, height: Text.LineHeight));
-    Widgets.Label(new Rect(0, 0, 600f, height: Text.LineHeight), $"sakldllksadllalkwqooweowqoeoqwoeo: {i} {Text.LineHeight}");
-    GUI.EndGroup();
-    //////////////////
-    Widgets.Label(new Rect(0, viewRect.y + i * (Text.LineHeight + 2), 600f, Text.LineHeight), $"sakldllksadllalkwqooweowqoeoqwoeo: {i} {Text.LineHeight}");
- */
