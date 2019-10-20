@@ -14,7 +14,7 @@
   <InfoLabel>Info</InfoLabel>
   <Pawns>Pawns</Pawns>
   
-  <CurrentRaidPoints>Raid strength(points)</CurrentRaidPoints>
+  <CurrentRaidPoints>Raid strength(points): {0}</CurrentRaidPoints>
   
   <PointsFormula>RaidPoints = (P:Wealth + P:Colonists + P:Animals) * F:Adaptation * F:Difficulty * F:DaysPassed</PointsFormula>
   <PointsLabel>&lt;b&gt;&lt;color=green&gt;Points&lt;/color&gt;&lt;/b&gt;</PointsLabel>

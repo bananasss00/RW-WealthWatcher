@@ -18,7 +18,7 @@ namespace WealthWatcher
 
         public MainWindow()
         {
-            optionalTitle = "WealthWatcher";
+            //optionalTitle = "WealthWatcher";
             preventCameraMotion = false;
             absorbInputAroundWindow = false;
             draggable = true;
@@ -28,7 +28,7 @@ namespace WealthWatcher
         public override void PostClose()
         {
             base.PostClose();
-            
+            _activeTab?.Close();
         }
 
         public override void PreOpen()

@@ -23,6 +23,7 @@ namespace WealthWatcher.Tabs
         public virtual float LineHeight => Text.LineHeight * 1.2f;
         public virtual int LinesCount => items?.Count ?? 0;
         public virtual float ViewHeight => LinesCount > 0 ? (LinesCount + 1) * LineHeight : 0f;
+        public virtual void Close() => items?.Clear();
 
         public virtual void Draw(Rect viewRect)
         {

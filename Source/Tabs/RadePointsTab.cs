@@ -13,6 +13,8 @@ namespace WealthWatcher.Tabs
 
         public float ViewHeight => 300f;
 
+        public void Close() {}
+
         public void Update()
         {
             IIncidentTarget incidentTarget = Find.CurrentMap;

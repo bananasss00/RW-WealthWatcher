@@ -10,5 +10,6 @@ namespace WealthWatcher.Tabs
         float ViewHeight { get; }
         void Update();
         void Draw(Rect viewRect);
+        void Close();
     }
 }
