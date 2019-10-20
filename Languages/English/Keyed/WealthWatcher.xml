@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
-  <ShowItems>Items</ShowItems>
-  <ShowBuildings>Buildings</ShowBuildings>
-  <ShowRaidPoints>RaidPoints</ShowRaidPoints>
-  
+  <capSelectTab>Not selected</capSelectTab>
+  <capItemsTab>Items</capItemsTab>
+  <capBuildingsTab>Buildings</capBuildingsTab>
+  <capPawnsTab>Pawns</capPawnsTab>
+  <capRadePointsTab>Raid points</capRadePointsTab>
+  <btnSelectTab>Tab: {0}</btnSelectTab>
+
   <EntryLabel>Label</EntryLabel>
   <CountLabel>Count</CountLabel>
   <MarketValueLabel>Value</MarketValueLabel>

@@ -54,7 +54,7 @@ namespace WealthWatcher
 
         public override void DoWindowContents(Rect rect)
         {
-            float y = 5f;
+            float y = 0f;
 
             Text.Font = GameFont.Small;
             Text.Anchor = TextAnchor.MiddleLeft;

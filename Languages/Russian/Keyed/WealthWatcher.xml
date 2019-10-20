@@ -7,11 +7,7 @@
   <capPawnsTab>Пешки</capPawnsTab>
   <capRadePointsTab>Очки рейда</capRadePointsTab>
   <btnSelectTab>Вкладка: {0}</btnSelectTab>
-  
-  <ShowItems>Предметы</ShowItems>
-  <ShowBuildings>Постройки</ShowBuildings>
-  <ShowRaidPoints>Очки рейда</ShowRaidPoints>
-  
+
   <EntryLabel>Название</EntryLabel>
   <CountLabel>Кол-во</CountLabel>
   <MarketValueLabel>Цена</MarketValueLabel>
