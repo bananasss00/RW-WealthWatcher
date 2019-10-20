@@ -84,7 +84,7 @@ namespace WealthWatcher
             Rect viewRect = new Rect(x: 0f, y: y, width: rect.width - 30f, height: _activeTab?.ViewHeight ?? 0f);
 
             Widgets.BeginScrollView(outRect: outRect, scrollPosition: ref _scrollPosition, viewRect: viewRect);
-            _activeTab?.Draw(viewRect);
+            _activeTab?.Draw(outRect, viewRect, _scrollPosition);
             Widgets.EndScrollView();
 
             Text.Anchor = TextAnchor.UpperLeft;

@@ -24,7 +24,7 @@ namespace WealthWatcher.Tabs
             }
         }
 
-        public void Draw(Rect viewRect)
+        public void Draw(Rect outRect, Rect viewRect, Vector2 scrollPosition)
         {
             if (rps == null) return;
 

@@ -10,6 +10,7 @@ namespace WealthWatcher
 	{
 	    public static bool ShowRadePoints = true;
 		public static bool UnlockManualDamageItems = false;
+		public static bool Debug = false;
 		
 		public static void DoSettingsWindowContents(Rect rect)
 		{
@@ -24,6 +25,9 @@ namespace WealthWatcher
 		    {
 		        modOptions.CheckboxLabeled("Settings_UnlockManualDamageItems".Translate(), ref UnlockManualDamageItems);
 		    }
+
+            if (Prefs.DevMode)
+                modOptions.CheckboxLabeled("Debug mode", ref Debug);
 
 		    modOptions.End();
 		}

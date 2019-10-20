@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -21,17 +22,35 @@ namespace WealthWatcher.Tabs
 
         public virtual float DefaultColumnWidth => Text.LineHeight * 2.5f;
         public virtual float LineHeight => Text.LineHeight * 1.2f;
-        public virtual int LinesCount => items?.Count ?? 0;
+        public virtual int LinesCount => items?.Count(x => x.MarketValueAll >= 1f) ?? 0;
         public virtual float ViewHeight => LinesCount > 0 ? (LinesCount + 1) * LineHeight : 0f;
         public virtual void Close() => items?.Clear();
 
-        public virtual void Draw(Rect viewRect)
+        public virtual void Draw(Rect outRect, Rect viewRect, Vector2 scrollPosition)
         {
             if (items == null) return;
 
-            float y = viewRect.y;
+            // optimization: show only visible lines
+            float
+                y = viewRect.y,
+                maxVisibleLines = outRect.height / LineHeight;
+            int
+                firstVisibleIndex = Math.Max(0,              (int)((scrollPosition.y - LineHeight/*add extra line on start*/) / LineHeight)),
+                lastVisibleIndex = Math.Min(items.Count - 1, (int)(firstVisibleIndex + maxVisibleLines + 1/*add extra line on end*/));
+
+            if (Settings.Debug)
+            {
+                Log.Warning($"[WW] itemsCount/visibleCount: {items.Count}/{lastVisibleIndex-firstVisibleIndex}; first/last: {firstVisibleIndex}/{lastVisibleIndex}");
+            }
+
             DrawHeadLine(viewRect.width, LineHeight, ref y);
-            items.ForEach(wi => DrawLine(wi, viewRect.width, LineHeight, ref y));
+
+            // roll y to first visible item
+            y = viewRect.y + (firstVisibleIndex + 1/*head line*/) * LineHeight;
+            for (int i = firstVisibleIndex; i <= lastVisibleIndex; i++)
+            {
+                DrawLine(items[i], viewRect.width, LineHeight, ref y);
+            }
         }
 
         #region Draw helpers
@@ -63,37 +82,37 @@ namespace WealthWatcher.Tabs
 
         #endregion
         
-        private void DrawHeadLine(float width, float height, ref float y)
+        private void DrawHeadLine(float lineWidth, float lineHeight, ref float y)
         {
-            GUI.BeginGroup(new Rect(x: 0f, y: y, width: width, height: height));
+            GUI.BeginGroup(new Rect(x: 0f, y: y, width: lineWidth, height: lineHeight));
 
-            float nameColumnWidth = width - height - DefaultColumnWidth * 3; // height(icon)
-            Rect elementRect = new Rect(x: 0f, y: 0f, width: width, height: height);
+            float nameColumnWidth = lineWidth - lineHeight - DefaultColumnWidth * 3; // height(icon)
+            Rect elementRect = new Rect(x: 0f, y: 0f, width: lineWidth, height: lineHeight);
             
-            DrawElementOfLineHead(ref elementRect, height, null);
+            DrawElementOfLineHead(ref elementRect, lineHeight, null);
             DrawElementOfLineHead(ref elementRect, nameColumnWidth, "EntryLabel".Translate());
             DrawElementOfLineHead(ref elementRect, DefaultColumnWidth, "CountLabel".Translate());
             DrawElementOfLineHead(ref elementRect, DefaultColumnWidth, "MarketValueLabel".Translate());
             DrawElementOfLineHead(ref elementRect, DefaultColumnWidth, "InfoLabel".Translate());
             
             GUI.EndGroup();
-            y += height;
+            y += lineHeight;
         }
 
-        private void DrawLine(WealthItem wi, float width, float height, ref float y)
+        private void DrawLine(WealthItem wi, float lineWidth, float lineHeight, ref float y)
         {
-            if (wi.thing != null && wi.MarketValueAll < 1f) return;
+            if (wi.MarketValueAll < 1f) return;
 
-            GUI.BeginGroup(new Rect(x: 0f, y: y, width: width, height: height));
+            GUI.BeginGroup(new Rect(x: 0f, y: y, width: lineWidth, height: lineHeight));
 
-            float nameColumnWidth = width - height - DefaultColumnWidth * 3; // height(icon)
-            Rect elementRect = new Rect(x: 0f, y: 0f, width: width, height: height);
+            float nameColumnWidth = lineWidth - lineHeight - DefaultColumnWidth * 3; // height(icon)
+            Rect elementRect = new Rect(x: 0f, y: 0f, width: lineWidth, height: lineHeight);
             
             Widgets.DrawHighlightIfMouseover(elementRect);
             TooltipHandler.TipRegion(elementRect, wi.thing.DescriptionFlavor);
 
             // icon, lambda because Widgets.ThingIcon has 3 arguments with default float value 1
-            DrawElementOfLine(ref elementRect, height, (rect, thing) => Widgets.ThingIcon(rect, thing), wi.thing);
+            DrawElementOfLine(ref elementRect, lineHeight, (rect, thing) => Widgets.ThingIcon(rect, thing), wi.thing);
             // label
             DrawElementOfLine(ref elementRect, nameColumnWidth, Widgets.Label, wi.Name);
             // count
@@ -104,7 +123,7 @@ namespace WealthWatcher.Tabs
             Widgets.InfoCardButton(elementRect.x, elementRect.y, wi.thing);
             
             GUI.EndGroup();
-            y += height;
+            y += lineHeight;
         }
     }
 }

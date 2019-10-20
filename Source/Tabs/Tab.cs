@@ -9,7 +9,7 @@ namespace WealthWatcher.Tabs
         string Caption { get; }
         float ViewHeight { get; }
         void Update();
-        void Draw(Rect viewRect);
+        void Draw(Rect outRect, Rect viewRect, Vector2 scrollPosition);
         void Close();
     }
 }
