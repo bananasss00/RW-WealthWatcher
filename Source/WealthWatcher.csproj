@@ -70,8 +70,14 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Harmony.cs" />
     <Compile Include="ListWealthExtension.cs" />
+    <Compile Include="MainWindow.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="RadePointsSummary.cs" />
+    <Compile Include="Tabs\PawnsTab.cs" />
+    <Compile Include="Tabs\Tab.cs" />
+    <Compile Include="Tabs\BuildingsTab.cs" />
+    <Compile Include="Tabs\ItemsTab.cs" />
+    <Compile Include="Tabs\RadePointsTab.cs" />
     <Compile Include="WealthWatcher.cs" />
     <Compile Include="WealthWatcherDefOf.cs" />
     <Compile Include="WeatlthWatcherComponent.cs" />

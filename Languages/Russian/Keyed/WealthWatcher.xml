@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
+  <capSelectTab>Не выбрано</capSelectTab>
+  <capItemsTab>Предметы</capItemsTab>
+  <capBuildingsTab>Постройки</capBuildingsTab>
+  <capPawnsTab>Пешки</capPawnsTab>
+  <capRadePointsTab>Очки рейда</capRadePointsTab>
+  <btnSelectTab>Вкладка: {0}</btnSelectTab>
+  
   <ShowItems>Предметы</ShowItems>
   <ShowBuildings>Постройки</ShowBuildings>
   <ShowRaidPoints>Очки рейда</ShowRaidPoints>
@@ -11,7 +18,7 @@
   <InfoLabel>Инфо</InfoLabel>
   <Pawns>Пешки</Pawns>
   
-  <CurrentRaidPoints>Сила рейда(очков)</CurrentRaidPoints>
+  <CurrentRaidPoints>Сила рейда(очков): {0}</CurrentRaidPoints>
   
   <PointsFormula>Очки = (О:Ценность + О:Колонисты + О:Животные) * Ф:Адаптация * Ф:Сложность * Ф:ДнейПрошло</PointsFormula>
   <PointsLabel>&lt;b&gt;&lt;color=green&gt;Очки&lt;/color&gt;&lt;/b&gt;</PointsLabel>

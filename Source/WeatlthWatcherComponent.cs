@@ -12,9 +12,9 @@ namespace WealthWatcher
         {
             if (WealthWatcherDefOf.WealthWatcher_Open != null && WealthWatcherDefOf.WealthWatcher_Open.IsDownEvent)
             {
-                if (Find.WindowStack.Windows.Count(window => window is WeatlthWatcherWindow) <= 0)
+                if (Find.WindowStack.Windows.Count(window => window is MainWindow) == 0)
                 {
-                    Find.WindowStack.Add(new WeatlthWatcherWindow());
+                    Find.WindowStack.Add(new MainWindow());
                 }
             }
         }

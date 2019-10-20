@@ -4,6 +4,8 @@ VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WealthWatcher", "WealthWatcher.csproj", "{36F0BBD8-72EB-40DD-AD22-FBB24493F5F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "..\Test\Test.csproj", "{7954C6EB-E855-40B1-8B32-F6024998045A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +16,10 @@ Global
 		{36F0BBD8-72EB-40DD-AD22-FBB24493F5F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36F0BBD8-72EB-40DD-AD22-FBB24493F5F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36F0BBD8-72EB-40DD-AD22-FBB24493F5F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7954C6EB-E855-40B1-8B32-F6024998045A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7954C6EB-E855-40B1-8B32-F6024998045A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7954C6EB-E855-40B1-8B32-F6024998045A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7954C6EB-E855-40B1-8B32-F6024998045A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

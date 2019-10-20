@@ -30,8 +30,8 @@ namespace WealthWatcher
         private Vector2 resultsAreaScroll;
         private RadePointsSummary rps;
 
-        public override Vector2 InitialSize { get { return new Vector2(640f, 480f); } }
-        
+        public override Vector2 InitialSize => new Vector2(640f, 480f);
+
         public override void PostClose()
         {
             base.PostClose();
