@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Verse;
+using WealthWatcher.Tabs;
 
 namespace WealthWatcher
 {
@@ -32,16 +33,6 @@ namespace WealthWatcher
                     thing = thing
                 });
             }
-        }
-
-        public static void AddWealth(this List<WealthItem> l, string name, float marketValueAll)
-        {
-            l.Add(new WealthItem()
-            {
-                Name = name,
-                MarketValueAll = marketValueAll,
-                thing = null
-            });
         }
     }
 }

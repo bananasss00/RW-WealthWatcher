@@ -78,10 +78,10 @@
     <Compile Include="Tabs\BuildingsTab.cs" />
     <Compile Include="Tabs\ItemsTab.cs" />
     <Compile Include="Tabs\RadePointsTab.cs" />
+    <Compile Include="Tabs\WealthTab.cs" />
     <Compile Include="WealthWatcher.cs" />
     <Compile Include="WealthWatcherDefOf.cs" />
     <Compile Include="WeatlthWatcherComponent.cs" />
-    <Compile Include="WeatlthWatcherWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

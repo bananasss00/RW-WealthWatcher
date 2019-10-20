@@ -4,17 +4,16 @@ using Verse;
 
 namespace WealthWatcher.Tabs
 {
-    public class RadePointsTab : Tab
+    public class RadePointsTab : ITab
     {
-        public new static readonly string CAPTION = "capRadePointsTab".Translate();
-        
-        public override string Caption => CAPTION;
-
-        public override float ViewHeight => 350f;
-
+        public static readonly string CAPTION = "capRadePointsTab".Translate();
         private RadePointsSummary rps;
 
-        public override void Update()
+        public string Caption => CAPTION;
+
+        public float ViewHeight => 350f;
+
+        public void Update()
         {
             IIncidentTarget incidentTarget = Find.CurrentMap;
             if (incidentTarget != null)
@@ -23,7 +22,7 @@ namespace WealthWatcher.Tabs
             }
         }
 
-        public override void Draw(Rect viewRect)
+        public void Draw(Rect viewRect)
         {
             if (rps == null) return;
 

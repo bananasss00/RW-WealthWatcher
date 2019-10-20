@@ -5,13 +5,13 @@ using Verse;
 
 namespace WealthWatcher.Tabs
 {
-    public class PawnsTab : Tab
+    public class PawnsTab : WealthTab, ITab
     {
-        public new static readonly string CAPTION = "capPawnsTab".Translate();
+        public static readonly string CAPTION = "capPawnsTab".Translate();
         
-        public override string Caption => CAPTION;
+        public string Caption => CAPTION;
 
-        public override void Update()
+        public void Update()
         {
             items = new List<WealthItem>();
 

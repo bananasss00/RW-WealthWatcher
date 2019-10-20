@@ -10,7 +10,7 @@ namespace WealthWatcher
 
     public class MainWindow : Window
     {
-        private static Tab _activeTab = null;
+        private static ITab _activeTab = null;
         private Vector2 _scrollPosition = new Vector2(0, 0);
         private string _raidPoints = null;
 
@@ -59,7 +59,7 @@ namespace WealthWatcher
             float btnWidth = 200f;
             float btnHeight = 30f;
             Rect btnSelectTabRect = new Rect(x: 10f, y: y, width: btnWidth, height: btnHeight);
-            string btnCaption = _activeTab?.Caption ?? Tab.CAPTION;
+            string btnCaption = _activeTab?.Caption ?? "capSelectTab".Translate();
             
             if (Widgets.ButtonText(btnSelectTabRect, "btnSelectTab".Translate(btnCaption)))
             {
@@ -86,7 +86,7 @@ namespace WealthWatcher
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
-        private void SelectTab<T>() where T: Tab, new()
+        private void SelectTab<T>() where T: ITab, new()
         {
             _activeTab = new T();
             _activeTab.Update();
@@ -94,7 +94,7 @@ namespace WealthWatcher
 
         private IEnumerable<FloatMenuOption> GetTabsList()
         {
-            yield return new FloatMenuOption(Tab.CAPTION, () => _activeTab = null);
+            yield return new FloatMenuOption("capSelectTab".Translate(), () => _activeTab = null);
             yield return new FloatMenuOption(ItemsTab.CAPTION, SelectTab<ItemsTab>);
             yield return new FloatMenuOption(BuildingsTab.CAPTION, SelectTab<BuildingsTab>);
             yield return new FloatMenuOption(PawnsTab.CAPTION, SelectTab<PawnsTab>);
