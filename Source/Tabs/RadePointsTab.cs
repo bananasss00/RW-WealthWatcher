@@ -11,7 +11,7 @@ namespace WealthWatcher.Tabs
 
         public string Caption => CAPTION;
 
-        public float ViewHeight => 350f;
+        public float ViewHeight => 300f;
 
         public void Update()
         {
@@ -29,9 +29,9 @@ namespace WealthWatcher.Tabs
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(viewRect);
 
-            //Text.Font = GameFont.Tiny;
+            Text.Font = GameFont.Tiny;
             listingStandard.TextEntry("PointsFormula".Translate());
-            //Text.Font = GameFont.Small;
+            Text.Font = GameFont.Small;
             listingStandard.Gap();
             listingStandard.Label("PointsLabel".Translate());
             listingStandard.LabelDouble("WealthLabel".Translate(), $"{rps.pointsWealth:F0}", "WealthDescription"

@@ -14,7 +14,7 @@ namespace WealthWatcher
         private Vector2 _scrollPosition = new Vector2(0, 0);
         private string _raidPoints = null;
 
-        public override Vector2 InitialSize => new Vector2(800f, 600f);
+        public override Vector2 InitialSize => new Vector2(640f, 480f);
 
         public MainWindow()
         {
@@ -28,12 +28,15 @@ namespace WealthWatcher
         public override void PostClose()
         {
             base.PostClose();
+            
         }
 
         public override void PreOpen()
         {
             base.PreOpen();
 
+            Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.MiddleLeft;
             if (Settings.ShowRadePoints)
             {
                 IIncidentTarget incidentTarget = Find.CurrentMap;
@@ -44,6 +47,7 @@ namespace WealthWatcher
                         StorytellerUtility.DefaultThreatPointsNow(incidentTarget).ToString("F0"));
                 }
             }
+            Text.Anchor = TextAnchor.UpperLeft;
 
             _activeTab?.Update();
         }
