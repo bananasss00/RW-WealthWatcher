@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
-using Harmony;
+using HarmonyLib;
 using Verse;
 using RimWorld;
 using UnityEngine;
@@ -12,7 +12,7 @@ namespace WealthWatcher
     {
         public WealthWatcherMod(ModContentPack content) : base(content)
         {
-            HarmonyInstance.Create("pirateby.wealthwatcher").PatchAll(Assembly.GetExecutingAssembly());
+            new Harmony("pirateby.wealthwatcher").PatchAll(Assembly.GetExecutingAssembly());
             GetSettings<Settings>();
             Log.Message($"WealthWatcher :: Initialized");
         }
