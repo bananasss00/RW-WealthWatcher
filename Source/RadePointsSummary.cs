@@ -57,6 +57,9 @@ namespace WealthWatcher
             List<KeyValuePair<float, string>> animalsPoints = new List<KeyValuePair<float, string>>();
             foreach (Pawn pawn in m.PlayerPawnsForStoryteller)
             {
+                if (pawn.IsQuestLodger())
+                    continue;
+
                 bool isAnimal = false;
 
                 float pawnPoints = 0f;
@@ -102,13 +105,13 @@ namespace WealthWatcher
             // this factor on map always = 1; caravan = 0.7f, 0.9f
             // ws.points *= m.IncidentPointsRandomFactorRange.RandomInRange;
 
-            rps.adaptationFactor = Mathf.Lerp(1f, Find.StoryWatcher.watcherAdaptation.TotalThreatPointsFactor, Find.Storyteller.difficulty.adaptationEffectFactor);
-            rps.difficultyFactor = Find.Storyteller.difficulty.threatScale;
+            rps.adaptationFactor = Mathf.Lerp(1f, Find.StoryWatcher.watcherAdaptation.TotalThreatPointsFactor, Find.Storyteller.difficultyValues.adaptationEffectFactor);
+            rps.difficultyFactor = Find.Storyteller.difficultyValues.threatScale;
             rps.daysPassedFactor = Find.Storyteller.def.pointsFactorFromDaysPassed.Evaluate(GenDate.DaysPassed); // 0-10(days) = 0.7; 11-40(days) = 0.7...1.0; 40+ = 1.0
             rps.points *= rps.adaptationFactor;
             rps.points *= rps.difficultyFactor;
             rps.points *= rps.daysPassedFactor;
-            rps.points = Mathf.Clamp(rps.points, 35f, 20000f);
+            rps.points = Mathf.Clamp(rps.points, 35f, 10000f);
 
             Assert("[WealthWatcher] Raid points math changed({0} != {1})", rps.points, StorytellerUtility.DefaultThreatPointsNow(m));
 
