@@ -105,13 +105,18 @@ namespace WealthWatcher
             // this factor on map always = 1; caravan = 0.7f, 0.9f
             // ws.points *= m.IncidentPointsRandomFactorRange.RandomInRange;
 
-            rps.adaptationFactor = Mathf.Lerp(1f, Find.StoryWatcher.watcherAdaptation.TotalThreatPointsFactor, Find.Storyteller.difficultyValues.adaptationEffectFactor);
-            rps.difficultyFactor = Find.Storyteller.difficultyValues.threatScale;
+            rps.adaptationFactor = Mathf.Lerp(1f, Find.StoryWatcher.watcherAdaptation.TotalThreatPointsFactor, 
+                CoreSK_Active ? Find.Storyteller.difficulty.adaptationEffectFactor : Find.Storyteller.difficultyValues.adaptationEffectFactor);
+            rps.difficultyFactor = CoreSK_Active ? Find.Storyteller.difficulty.threatScale : Find.Storyteller.difficultyValues.threatScale;
             rps.daysPassedFactor = Find.Storyteller.def.pointsFactorFromDaysPassed.Evaluate(GenDate.DaysPassed); // 0-10(days) = 0.7; 11-40(days) = 0.7...1.0; 40+ = 1.0
             rps.points *= rps.adaptationFactor;
             rps.points *= rps.difficultyFactor;
             rps.points *= rps.daysPassedFactor;
-            rps.points = Mathf.Clamp(rps.points, 35f, 10000f);
+
+            if (CoreSK_Active)
+                rps.points = Mathf.Clamp(rps.points, 350f, 20000f);
+            else
+                rps.points = Mathf.Clamp(rps.points, 35f, 10000f);
 
             Assert("[WealthWatcher] Raid points math changed({0} != {1})", rps.points, StorytellerUtility.DefaultThreatPointsNow(m));
 
@@ -123,6 +128,16 @@ namespace WealthWatcher
             if (Math.Abs(v1 - v2) > 0.01f)
             {
                 Log.Error(String.Format(error, v1, v2));
+            }
+        }
+
+        private static bool? _coreSK = null;
+        private static bool CoreSK_Active
+        {
+            get {
+                if (_coreSK == null)
+                    _coreSK = LoadedModManager.RunningModsListForReading.Any(x => x.Name.Equals("Core SK"));
+                return (bool) _coreSK;
             }
         }
 
