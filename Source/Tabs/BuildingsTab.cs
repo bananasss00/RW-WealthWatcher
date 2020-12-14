@@ -24,7 +24,7 @@ namespace WealthWatcher.Tabs
                 items.AddWealth(thing, true);
             });
 
-            items.Sort((a, b) => b.MarketValueAll.CompareTo(a.MarketValueAll));
+            //items.Sort((a, b) => b.MarketValueAll.CompareTo(a.MarketValueAll));
         }
     }
 }

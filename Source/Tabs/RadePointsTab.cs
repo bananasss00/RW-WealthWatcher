@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using UnityEngine;
 using Verse;
+using WealthWatcher.Tabs.Sorting;
 
 namespace WealthWatcher.Tabs
 {
@@ -22,6 +23,11 @@ namespace WealthWatcher.Tabs
             {
                 rps = RadePointsSummary.Get(Find.CurrentMap);
             }
+        }
+
+        public void Sort(TabComparer sort1, TabComparer sort2)
+        {
+            // empty
         }
 
         public void Draw(Rect outRect, Rect viewRect, Vector2 scrollPosition)

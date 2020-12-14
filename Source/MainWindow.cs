@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using WealthWatcher.Tabs.Sorting;
 
 namespace WealthWatcher
 {
@@ -13,8 +16,10 @@ namespace WealthWatcher
         private static ITab _activeTab = null;
         private Vector2 _scrollPosition = new Vector2(0, 0);
         private string _raidPoints = null;
+        private TabComparer _sort1 = new TabComparer_MarketValueAll(), _sort2 = new TabComparer_None();
+        private List<TabComparer> _listComparers;
 
-        public override Vector2 InitialSize => new Vector2(640f, 480f);
+        public override Vector2 InitialSize => new Vector2(740f, 580f);
 
         public MainWindow()
         {
@@ -23,6 +28,10 @@ namespace WealthWatcher
             absorbInputAroundWindow = false;
             draggable = true;
             doCloseX = true;
+            _listComparers = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(x => x != typeof(TabComparer) && typeof(TabComparer).IsAssignableFrom(x))
+                .Select(x => (TabComparer)Activator.CreateInstance(x))
+                .ToList();
         }
 
         public override void PostClose()
@@ -50,6 +59,7 @@ namespace WealthWatcher
             Text.Anchor = TextAnchor.UpperLeft;
 
             _activeTab?.Update();
+            _activeTab?.Sort(_sort1, _sort2);
         }
 
         public override void DoWindowContents(Rect rect)
@@ -60,20 +70,44 @@ namespace WealthWatcher
             Text.Anchor = TextAnchor.MiddleLeft;
 
             // draw button select tab
-            float btnWidth = 200f;
+            float btnWidth = 150f;
             float btnHeight = 30f;
+            float lblOrderWidth = 80f;
+            float btnOrderWidth = 120f;
             Rect btnSelectTabRect = new Rect(x: 10f, y: y, width: btnWidth, height: btnHeight);
+            Rect lblOrderRect = new Rect(x: btnSelectTabRect.xMax + 10f, y: y, width: lblOrderWidth, height: btnHeight);
+            Rect btnOrder1Rect = new Rect(x: lblOrderRect.xMax, y: y, width: btnOrderWidth, height: btnHeight);
+            Rect btnOrder2Rect = new Rect(x: btnOrder1Rect.xMax, y: y, width: btnOrderWidth, height: btnHeight);
             string btnCaption = _activeTab?.Caption ?? "capSelectTab".Translate();
             
             if (Widgets.ButtonText(btnSelectTabRect, "btnSelectTab".Translate(btnCaption)))
             {
-                Find.WindowStack.Add( new FloatMenu(this.GetTabsList().ToList()) );
+                Find.WindowStack.Add( new FloatMenu(this.GetTabsList().ToList()));
+            }
+
+            Widgets.Label(lblOrderRect, "lblOrder".Translate());
+
+            if (Widgets.ButtonText(btnOrder1Rect, _sort1.Name))
+            {
+                Find.WindowStack.Add(new FloatMenu(this.GetSortersList(comparer =>
+                {
+                    _sort1 = comparer;
+                    _activeTab?.Sort(_sort1, _sort2);
+                }).ToList()));
+            }
+            if (Widgets.ButtonText(btnOrder2Rect, _sort2.Name))
+            {
+                Find.WindowStack.Add(new FloatMenu(this.GetSortersList(comparer =>
+                {
+                    _sort2 = comparer;
+                    _activeTab?.Sort(_sort1, _sort2);
+                }).ToList()));
             }
 
             // draw raid points
             if (_raidPoints != null)
             {
-                Rect labelRaidPointsRect = new Rect(x: 10f + btnWidth + 10, y: y, width: 200f, height: Text.LineHeight);
+                Rect labelRaidPointsRect = new Rect(x: btnOrder2Rect.xMax + 10f, y: y, width: 100f, height: btnHeight);
                 Widgets.Label(labelRaidPointsRect, _raidPoints);
             }
 
@@ -94,6 +128,7 @@ namespace WealthWatcher
         {
             _activeTab = new T();
             _activeTab.Update();
+            _activeTab.Sort(_sort1, _sort2);
         }
 
         private IEnumerable<FloatMenuOption> GetTabsList()
@@ -105,6 +140,14 @@ namespace WealthWatcher
             
             if (Settings.ShowRadePoints)
                 yield return new FloatMenuOption(RadePointsTab.CAPTION, SelectTab<RadePointsTab>);
+        }
+
+        private IEnumerable<FloatMenuOption> GetSortersList(Action<TabComparer> setSort)
+        {
+            foreach (var comparer in _listComparers)
+            {
+                yield return new FloatMenuOption(comparer.Name, () => setSort(comparer));
+            }
         }
     }
 }

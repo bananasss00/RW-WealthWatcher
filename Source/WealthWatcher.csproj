@@ -63,6 +63,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="RadePointsSummary.cs" />
     <Compile Include="Tabs\PawnsTab.cs" />
+    <Compile Include="Tabs\Sorting\TabComparer.cs" />
     <Compile Include="Tabs\Tab.cs" />
     <Compile Include="Tabs\BuildingsTab.cs" />
     <Compile Include="Tabs\ItemsTab.cs" />
@@ -106,5 +107,6 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

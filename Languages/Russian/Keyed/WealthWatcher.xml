@@ -7,6 +7,17 @@
   <capPawnsTab>Пешки</capPawnsTab>
   <capRadePointsTab>Очки рейда</capRadePointsTab>
   <btnSelectTab>Вкладка: {0}</btnSelectTab>
+  <lblOrder>Подбор по:</lblOrder>
+  
+  <TabComparer_None>Ничего</TabComparer_None>
+  <TabComparer_MarketValue>Цена</TabComparer_MarketValue>
+  <TabComparer_MarketValueAll>Цена общая</TabComparer_MarketValueAll>
+  <TabComparer_Count>Количество</TabComparer_Count>
+  <TabComparer_Name>Имя</TabComparer_Name>
+  <TabComparer_Category>Категория</TabComparer_Category>
+  <TabComparer_HitPointsPercentage>Целостность (%)</TabComparer_HitPointsPercentage>
+  <TabComparer_Quality>Качество</TabComparer_Quality>
+  <TabComparer_Mass>Масса</TabComparer_Mass>
 
   <EntryLabel>Название</EntryLabel>
   <CountLabel>Кол-во</CountLabel>
@@ -14,7 +25,7 @@
   <InfoLabel>Инфо</InfoLabel>
   <Pawns>Пешки</Pawns>
   
-  <CurrentRaidPoints>Сила рейда(очков): {0}</CurrentRaidPoints>
+  <CurrentRaidPoints>Очки рейда: {0}</CurrentRaidPoints>
   
   <PointsFormula>Очки = (О:Ценность + О:Колонисты + О:Животные) * Ф:Адаптация * Ф:Сложность * Ф:ДнейПрошло</PointsFormula>
   <PointsLabel>&lt;b&gt;&lt;color=green&gt;Очки&lt;/color&gt;&lt;/b&gt;</PointsLabel>

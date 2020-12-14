@@ -7,14 +7,24 @@
   <capPawnsTab>Pawns</capPawnsTab>
   <capRadePointsTab>Raid points</capRadePointsTab>
   <btnSelectTab>Tab: {0}</btnSelectTab>
-
+  <lblOrder>Sort by:</lblOrder>
+  
+  <TabComparer_None>None</TabComparer_None>
+  <TabComparer_MarketValue>Price</TabComparer_MarketValue>
+  <TabComparer_MarketValueAll>Total price</TabComparer_MarketValueAll>
+  <TabComparer_Count>Count</TabComparer_Count>
+  <TabComparer_Name>Name</TabComparer_Name>
+  <TabComparer_Category>Category</TabComparer_Category>
+  <TabComparer_HitPointsPercentage>Hit points percentage</TabComparer_HitPointsPercentage>
+  <TabComparer_Quality>Quality</TabComparer_Quality>
+  <TabComparer_Mass>Mass</TabComparer_Mass>
   <EntryLabel>Label</EntryLabel>
   <CountLabel>Count</CountLabel>
   <MarketValueLabel>Value</MarketValueLabel>
   <InfoLabel>Info</InfoLabel>
   <Pawns>Pawns</Pawns>
   
-  <CurrentRaidPoints>Raid strength(points): {0}</CurrentRaidPoints>
+  <CurrentRaidPoints>Raid points: {0}</CurrentRaidPoints>
   
   <PointsFormula>RaidPoints = (P:Wealth + P:Colonists + P:Animals) * F:Adaptation * F:Difficulty * F:DaysPassed</PointsFormula>
   <PointsLabel>&lt;b&gt;&lt;color=green&gt;Points&lt;/color&gt;&lt;/b&gt;</PointsLabel>

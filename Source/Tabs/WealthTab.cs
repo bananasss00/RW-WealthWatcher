@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RimWorld;
 using UnityEngine;
 using Verse;
+using WealthWatcher.Tabs.Sorting;
 
 namespace WealthWatcher.Tabs
 {
@@ -50,7 +52,31 @@ namespace WealthWatcher.Tabs
             for (int i = firstVisibleIndex; i <= lastVisibleIndex; i++)
             {
                 DrawLine(items[i], viewRect.width, LineHeight, ref y);
+                if (Settings.Debug)
+                {
+                    Log.Warning($"  {items[i].Name}:{i} y={y}");
+                }
             }
+        }
+
+        public virtual void Sort(TabComparer sort1, TabComparer sort2)
+        {
+            var itemsWithValue = items.Where(x => x.MarketValueAll >= 1f);
+
+            if (sort1 is TabComparer_MarketValueAll && sort2 is TabComparer_None)
+            {
+                items = itemsWithValue
+                    .OrderByDescending(x => x, sort1)
+                    .ToList();
+                return;
+            }
+
+            // sort like trade window
+            items = itemsWithValue
+                .OrderBy(x => x, sort1)
+                .ThenBy(x => x, sort2)
+                .ThenBy(x => TransferableUIUtility.DefaultListOrderPriority(x.thing.def))
+                .ToList();
         }
 
         #region Draw helpers
