@@ -105,8 +105,8 @@ namespace WealthWatcher
             // this factor on map always = 1; caravan = 0.7f, 0.9f
             // ws.points *= m.IncidentPointsRandomFactorRange.RandomInRange;
 
-            rps.adaptationFactor = Mathf.Lerp(1f, Find.StoryWatcher.watcherAdaptation.TotalThreatPointsFactor, Find.Storyteller.difficultyValues.adaptationEffectFactor);
-            rps.difficultyFactor = CoreSK_Active ? Find.Storyteller.difficulty.threatScale : Find.Storyteller.difficultyValues.threatScale;
+            rps.adaptationFactor = Mathf.Lerp(1f, Find.StoryWatcher.watcherAdaptation.TotalThreatPointsFactor, Find.Storyteller.difficulty.adaptationEffectFactor);
+            rps.difficultyFactor = CoreSK_Active ? Find.Storyteller.difficulty.threatScale : Find.Storyteller.difficulty.threatScale;
             rps.daysPassedFactor = Find.Storyteller.def.pointsFactorFromDaysPassed.Evaluate(GenDate.DaysPassed); // 0-10(days) = 0.7; 11-40(days) = 0.7...1.0; 40+ = 1.0
             rps.points *= rps.adaptationFactor;
             rps.points *= rps.difficultyFactor;

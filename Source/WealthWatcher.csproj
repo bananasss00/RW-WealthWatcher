@@ -81,29 +81,27 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>K:\Games\Rimworld_R1.2-HSK\3-MyPack\#PACKAGES_1.2#\0Harmony.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\#PACKAGES_1.3#\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>K:\Games\Rimworld_R1.2-HSK\3-MyPack\#PACKAGES_1.2#\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\#PACKAGES_1.3#\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>K:\Games\Rimworld_R1.2-HSK\3-MyPack\#PACKAGES_1.2#\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\#PACKAGES_1.3#\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>K:\Games\Rimworld_R1.2-HSK\3-MyPack\#PACKAGES_1.2#\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\#PACKAGES_1.3#\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>K:\Games\Rimworld_R1.2-HSK\3-MyPack\#PACKAGES_1.2#\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>..\..\..\#PACKAGES_1.3#\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>K:\Games\Rimworld_R1.2-HSK\3-MyPack\#PACKAGES_1.2#\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>..\..\..\#PACKAGES_1.3#\UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
